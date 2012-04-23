@@ -1,0 +1,13 @@
+{% extends "site/base.html"%}
+{% block content %}
+<div id="content">
+  <h2>{{ heading }}</h2>
+  <hr>
+    {% for vid in videos %}
+      <h3><a href="/videos/{{ vid.name }}">{{ vid.name }}</a></h3>
+      <p>{{ vid.description }}</p>
+      <p class="small">Event Time: {{ vid.eventTime }} </p>
+      <hr>
+    {% endfor %}
+</div>
+{% endblock%}

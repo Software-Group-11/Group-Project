@@ -1,0 +1,33 @@
+{% extends "site/base.html"%}
+{% block content %}
+      <!-- Main hero unit for a primary marketing message or call to action -->
+      <div class="hero-unit {{sport.colour}}">
+        <span id="sport-icon"><img src="{{ STATIC_URL }}assets/img/{{sport.name}}.png" class="pull-right" /></span>
+        <h1>{{  sport.name }}</h1>
+        <p>{{ sport.description }}</p>
+
+        <p><a class="btn btn-action btn-large" href="{{ sport.name }}/videos">See Videos &raquo;</a></p>
+      </div>
+
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="span4">
+          <h2>Upcoming Events</h2>
+           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+          <p><a class="btn" href="#">Watch Video &raquo;</a></p>
+        </div>
+        <div class="span4">
+          <h2>Recent Events</h2>
+           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+          <p><a class="btn" href="#">Watch Video &raquo;</a></p>
+       </div>
+        <div class="span4">
+          <h2>Relevant Links</h2>
+          <p>
+            {% for link in sport.link_set.all %}
+                <p><a href="{{link.address}}">{{link.text}}</a>
+            {% endfor %}
+          </p>
+        </div>
+      </div>
+{% endblock%}
