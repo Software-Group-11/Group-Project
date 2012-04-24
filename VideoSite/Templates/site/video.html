@@ -7,6 +7,14 @@
     <object style="height: 390px; width: 640px"><param name="movie" value="http://www.youtube.com/v/{{ video.videoLocation }}?version=3"><param name="allowFullScreen" value="true"><param name="allowScriptAccess" value="always"><embed src="http://www.youtube.com/v/{{ video.videoLocation }}?version=3&feature=player_profilepage" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always" width="640" height="360">
     </object>
     <p>{{ video.description }}</p>
+    <hr>
+    {% for comment  in video.comment_set.all%}
+      <p>
+        <b>{{ comment.title }}</b> by <b>{{ comment.author }}</b> at {{ comment.uploadTime }}
+        <p>{{ comment.content }}</p>
+      </p>
+      {% endfor%}
+        <hr>
     </div>
 </div>
 {% endblock%}
