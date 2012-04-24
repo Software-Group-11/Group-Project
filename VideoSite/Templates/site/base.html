@@ -17,12 +17,32 @@
     </style>
     <link href="{{ STATIC_URL }}/assets/css/bootstrap-responsive.css" rel="stylesheet">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL}}/assets/js/dropdown.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL}}/assets/js/modal.js"></script>
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <script type="text/javascript">
+    $(function() {
+      $('.modal').hide();
+      
+       $('.close_modal').click(function(evt) {
+        $(evt.target).parent().parent().modal('hide');
+      });
+      
+      $('.login_trigger').click(function() {
+        $('#loginModal').modal('toggle');
+        return false;
+      });
+      
+      $('.submit_login_form').click(function() {
+        $('#loginForm').submit();
+      });
+     });
+     
+
+    </script>
 
     <!-- Le fav and touch icons -->
     <link rel="shortcut icon" href="{{ STATIC_URL }}/assets/ico/favicon.ico">
@@ -54,8 +74,14 @@
               <li class="{% active "Cycling" %}"><a href="/sport/Cycling">Cycling</a></li>
               <li class="{% active "Diving" %}"><a href="/sport/Diving">Diving</a></li>
               <li class="{% active "Rowing" %}"><a href="/sport/Rowing">Rowing</a></li>
-              <li><a href="/sport/Swimming">Swimming</a></li>
-              <li><a href="/sport/Hockey">Hockey</a></li>
+              <li class="{% active "Swimming" %}"><a href="/sport/Swimming">Swimming</a></li>
+              <li class="{% active "Hockey" %}"><a href="/sport/Hockey">Hockey</a></li>
+              {% if not user.is_authenticated %}
+              <li><a href="/register">Register</a></li>
+              <li><a  class="login_trigger" href="#">Login</a></li>
+              {% else %}
+                <li><a href="/logout?next={{ request.get_full_path }}">Logout</a></li>
+              {% endif %}
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -69,11 +95,26 @@
       </footer>
 
     </div> <!-- /container -->
-
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-
-
+    
+    <!--modal login box-->
+    <div class="modal" id="loginModal">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal">x</button>
+        <h3>Login</h3>
+      </div>
+      <div class="modal-body">
+        <form action="/login/?next={{ request.get_full_path }}" method="post" id="loginForm">
+          <label for="Username">Username: <input type="text" placeholder="Username" name="Username" /></label>
+          <label for="Password">Password: <input type="password" placeholder="Password" name="Password" /></label>
+          {% csrf_token %}
+        </form>
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="btn close_modal">Close</a>
+        <a href="#" class="btn btn-primary submit_login_form">Submit</a>
+      </div>
+    </div>
+    
+    
   </body>
 </html>

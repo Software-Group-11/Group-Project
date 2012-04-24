@@ -1,3 +1,5 @@
+from django.core.urlresolvers import reverse_lazy
+
 # Django settings for Olympics project.
 
 DEBUG = True
@@ -92,6 +94,15 @@ TEMPLATE_LOADERS = (
 #     'django.template.loaders.eggs.Loader',
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.core.context_processors.request", 
+    "django.contrib.auth.context_processors.auth", 
+    "django.core.context_processors.debug", 
+    "django.core.context_processors.i18n", 
+    "django.core.context_processors.media", 
+    "django.core.context_processors.static",
+)
+
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -156,3 +167,7 @@ LOGGING = {
         },
     }
 }
+
+LOGIN_URL = '/login'
+LOGOUT_URL = '/logout'
+LOGIN_REDIRECT_URL = reverse_lazy('home')

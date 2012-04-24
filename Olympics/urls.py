@@ -16,7 +16,10 @@ urlpatterns = patterns('',
     url(r'^sport/(?P<sportName>.+)$', 'VideoSite.views.sport'),
     url(r'^search/(?P<searchTerm>.+)', 'VideoSite.views.search'),
     url(r'^search/', 'VideoSite.views.postSearch'),
-    url(r'^$', 'VideoSite.views.home'),
+    url(r'^login/', 'VideoSite.views.login'),
+    url(r'^register/', 'VideoSite.views.register'),
+    url(r'^logout/', 'VideoSite.views.logout'),
+    url(r'^$', 'VideoSite.views.home', name='home'),
     
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
