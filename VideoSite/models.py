@@ -1,9 +1,20 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# Create your models here.
 class Sport(models.Model):
+    
+    COLOUR_CHOICES = (
+        ('red', 'Red'),
+        ('blue', 'Blue'),
+        ('yellow', 'Yellow'),
+        ('black', 'Black'),
+        ('green', 'Green'),
+        ('teal', 'Teal'),
+    )
+    
     name = models.CharField(max_length=200)
+    description = models.TextField()
+    colour = models.CharField(max_length=100, choices=COLOUR_CHOICES)
     
     def getVideos(self):
         #return a list of videos for this sport
@@ -11,12 +22,17 @@ class Sport(models.Model):
     
     def __unicode__(self):
         return self.name
-
+    
+class Link(models.Model):
+    address = models.URLField()
+    text = models.CharField(max_length=200)
+    sport = models.ForeignKey(Sport)
+    
 class Video(models.Model):
         name = models.CharField(max_length=200)
         description = models.TextField()
         sport = models.ForeignKey(Sport)
-        pictureLocation = models.CharField("Youtube ID", max_length=200)
+        videoLocation = models.CharField("Youtube ID", max_length=200)
         rating = models.IntegerField()
         eventTime = models.DateTimeField("Event Time", auto_now=False)
         uploadTime = models.DateTimeField("Date Uploaded", auto_now=True)

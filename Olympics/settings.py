@@ -70,6 +70,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    ('assets', 'VideoSite/Templates/site/assets'),
 )
 
 # List of finder classes that know how to find static files in
@@ -87,6 +88,7 @@ SECRET_KEY = '4d_&amp;f9*mg@%i(0a#8rnox0*n@az%*=y0z-b_#uf%#sanu3y74j'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
+    #'django.template.loaders.app_directories.load_template_source',
 #     'django.template.loaders.eggs.Loader',
 )
 
@@ -109,6 +111,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    'VideoSite/Templates',
 )
 
 INSTALLED_APPS = (

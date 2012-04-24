@@ -11,7 +11,13 @@ urlpatterns = patterns('',
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
+    url(r'^videos/(?P<videoId>.+)', 'VideoSite.views.watchVideo'),
+    url(r'^sport/(?P<sportName>.+)/videos', 'VideoSite.views.videosList'),
+    url(r'^sport/(?P<sportName>.+)$', 'VideoSite.views.sport'),
+    url(r'^search/(?P<searchTerm>.+)', 'VideoSite.views.search'),
+    url(r'^search/', 'VideoSite.views.postSearch'),
+    url(r'^$', 'VideoSite.views.home'),
+    
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
 )

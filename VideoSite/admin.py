@@ -1,18 +1,22 @@
-from VideoSite.models import Video, Comment, Sport
+from VideoSite.models import *
 from django.contrib import admin
 
 class CommentInline(admin.StackedInline):
     model = Comment
-    extras = 0
-    
+
+class LinkInline(admin.StackedInline):
+    model = Link
+
 class VideoAdmin(admin.ModelAdmin):
     fieldsets = [
-    (None, {'fields': ['name', 'eventTime', 'description', 'sport', 'pictureLocation', 'rating']}),
+    (None, {'fields': ['name', 'eventTime', 'description', 'sport', 'videoLocation', 'rating']}),
     ]
     inlines = [CommentInline]
     list_filter = ('uploadTime', 'eventTime')
     search_fields = ['name']
 
+class SportAdmin(admin.ModelAdmin):
+    inlines = [LinkInline]
 
 admin.site.register(Video, VideoAdmin)
-admin.site.register(Sport)
+admin.site.register(Sport, SportAdmin)
