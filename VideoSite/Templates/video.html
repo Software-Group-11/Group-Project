@@ -15,6 +15,15 @@
       </p>
       {% endfor%}
         <hr>
+        {% if user.is_authenticated %}
+        <h3>Add a Comment</h3>
+        <form action="comments" method="post">
+            <label for="title"><input type="text" placeholder="Title" name="Title" /></label>
+            <label for="comment"><textarea name="comment" rows="8" cols="40" style="width:643px"></textarea></label>
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        {% endif %}
     </div>
 </div>
 {% endblock%}

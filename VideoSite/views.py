@@ -61,3 +61,14 @@ def search(request, searchTerm):
             'videos': results
         }
     return render_to_response('list.html', viewModel, context_instance=RequestContext(request))
+<<<<<<< HEAD
+=======
+    
+def addComment(request, videoId):
+    #validate incoming data (no blank fields)
+    
+    #Add comment to database
+    
+    #Redirect back to the video
+    pass
+>>>>>>> 8a93984acf57f9f0fb45babe7dbc5e468c3d17b4
