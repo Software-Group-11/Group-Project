@@ -12,7 +12,20 @@ def home(request):
     
 def sport(request, sportName):
     sport = get_object_or_404(Sport, name=sportName)
-    return render_to_response('sport.html', { 'sport': sport }, context_instance=RequestContext(request))
+    videos = sport.video_set.all()
+    latestVideo = []
+    nextVideo = []
+    for video in videos:
+      if hasOccurred(video):
+        latestVideo.append(video)
+      else:
+        nextVideo.append(video)
+        
+    latestVideo = max
+    
+    
+    
+    return render_to_response('sport.html', { 'sport': sport, 'latestVideo': latestVideo, 'nextVideo':nextVideo }, context_instance=RequestContext(request))
 
 def videosList(request, sportName):
     sport = get_object_or_404(Sport, name=sportName)

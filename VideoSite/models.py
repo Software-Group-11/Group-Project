@@ -43,17 +43,20 @@ class Video(models.Model):
             
         def increaseRating(self):
             #increase the rating of the video by 1
+            self.rating= self.rating+1
             pass
         
         def decreaseRating(self):
             #decrease the rating of the video by 1
+            self.rating= self.rating-1
             pass
             
         def hasOccurred(self):
             #uses the date of the event to determine if it is in the future, 
             #or has already happened
             #return a bool (True for has happened, False for in the future)
-            pass
+            return self.eventTime < localtime()
+            
         
         def __unicode__(self):
             #used by django for labels and stuff
