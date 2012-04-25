@@ -35,7 +35,7 @@ def register(request):
         password = request.POST['Password']
         confirm = request.POST['Confirm_Password']
         email = request.POST['Email']
-        if username is None or password is None or confirm is None or email is None:
+        if username == "" == password == "" or confirm == "" or email == "":
             return render_to_response('register.html', {'error': 'Please fill in all form fields', 'username':username, 'email':email}, context_instance=RequestContext(request))
         if not password == confirm:
             return render_to_response('register.html', {'error': 'Please ensure both password fields match', 'username':username, 'email': email}, context_instance=RequestContext(request))

@@ -38,6 +38,7 @@ def videosList(request, sportName):
     return render_to_response('list.html', viewModel, context_instance=r)
     
 def watchVideo(request, videoId):
+    print "test"
     video = get_object_or_404(Video, name=videoId)
     r = RequestContext(request)
     r['sport'] = video.sport
@@ -61,14 +62,26 @@ def search(request, searchTerm):
             'videos': results
         }
     return render_to_response('list.html', viewModel, context_instance=RequestContext(request))
-<<<<<<< HEAD
-=======
-    
+ 
 def addComment(request, videoId):
     #validate incoming data (no blank fields)
+    video = get_object_or_404(Video, name=videoId)
     
-    #Add comment to database
+    if request.POST:
+        titlePost = request.POST['Title']
+        content = request.POST['Comment']
+        if titlePost == "" or content == "":
+            return render_to_response('video.html', {'video': video, 'error': 'Please complete both form fields.'}, context_instance=RequestContext(request))
+        
+        comment = Comment()
+        comment.title = titlePost
+        comment.content = content
+        comment.author = request.user
+        comment.video = video
+        
+        comment.save()
+        
+        r = RequestContext(request)
+        r['sport'] = video.sport
     
-    #Redirect back to the video
-    pass
->>>>>>> 8a93984acf57f9f0fb45babe7dbc5e468c3d17b4
+    return HttpResponseRedirect('/videos/' + video.name)

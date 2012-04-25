@@ -1,7 +1,10 @@
 {% extends "base.html"%}
 {% block content %}
 <div id="content">
-  <h2>{{ video.title }}</h2>
+  {% if error %}
+    <div class="alert alert-error">{{ error }}</div>
+  {% endif %}
+  <h2>{{ video.name }}</h2>
   <hr>
     <div id="video">
       <iframe class="youtube-player" type="text/html" width="640" height="390" src="http://www.youtube.com/embed/{{ video.videoLocation }}?wmode=opaque" frameborder="0"></iframe>
@@ -17,9 +20,9 @@
         <hr>
         {% if user.is_authenticated %}
         <h3>Add a Comment</h3>
-        <form action="comments" method="post">
+        <form action="/videos/{{ video.name }}/comments" method="post">
             <label for="title"><input type="text" placeholder="Title" name="Title" /></label>
-            <label for="comment"><textarea name="comment" rows="8" cols="40" style="width:643px"></textarea></label>
+            <label for="comment"><textarea name="Comment" rows="8" cols="40" style="width:643px"></textarea></label>
             {% csrf_token %}
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>

@@ -11,6 +11,7 @@ urlpatterns = patterns('',
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+    url(r'^videos/(?P<videoId>.+)/comments)', 'VideoSite.views.addComment'), 
     url(r'^videos/(?P<videoId>.+)', 'VideoSite.views.watchVideo'),
     url(r'^sport/(?P<sportName>.+)/videos', 'VideoSite.views.videosList'),
     url(r'^sport/(?P<sportName>.+)$', 'VideoSite.views.sport'),
