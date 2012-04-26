@@ -3,6 +3,7 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 import django.contrib.auth
+from datetime import datetime
 from django.template import RequestContext
 from django.db.models import Q
 from VideoSite.models import *
@@ -15,13 +16,16 @@ def sport(request, sportName):
     videos = sport.video_set.all()
     latestVideo = []
     nextVideo = []
-    for video in videos:
+    today = datetime.now()
+    latestVideo = sport.video_set.filter(eventTime__lt=today).order_by('eventTime')[:3]
+    nextVideo = sport.video_set.filter(eventTime__gt=today).order_by('eventTime')[:3]
+    """for video in videos:
       if hasOccurred(video):
         latestVideo.append(video)
       else:
         nextVideo.append(video)
         
-    latestVideo = max
+    latestVideo = max"""
     
     
     

@@ -43,13 +43,13 @@ class Video(models.Model):
             
         def increaseRating(self):
             #increase the rating of the video by 1
-            self.rating= self.rating+1
-            pass
+            self.rating = self.rating+1
+            self.save()
         
         def decreaseRating(self):
             #decrease the rating of the video by 1
-            self.rating= self.rating-1
-            pass
+            self.rating = self.rating-1
+            self.save()
             
         def hasOccurred(self):
             #uses the date of the event to determine if it is in the future, 
