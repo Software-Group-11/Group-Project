@@ -4029,3 +4029,17 @@ a.thumbnail:hover {
   margin:auto;
   width:700px;
 }
+.ratings {
+ float:right;
+ margin-right:10px;
+}
+.ratings img {
+  padding-left:5px;
+  cursor:pointer;
+}
+.ratings p {
+  font-size:20px;
+  font-weight:bold;
+  margin-top:5px;
+  margin-left:25px;
+}

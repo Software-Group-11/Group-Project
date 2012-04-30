@@ -48,8 +48,11 @@ class Video(models.Model):
         
         def decreaseRating(self):
             #decrease the rating of the video by 1
-            self.rating = self.rating-1
-            self.save()
+            if self.rating > 0:
+                self.rating = self.rating-1
+                self.save()
+            else:
+                raise Exception("Value lower than 0")
             
         def hasOccurred(self):
             #uses the date of the event to determine if it is in the future, 

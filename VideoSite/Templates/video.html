@@ -10,6 +10,8 @@
       <iframe class="youtube-player" type="text/html" width="640" height="390" src="http://www.youtube.com/embed/{{ video.videoLocation }}?wmode=opaque" frameborder="0"></iframe>
 
     <p>{{ video.description }}</p>
+    <div class="ratings"><img src="{{ STATIC_URL}}assets/img/thumbs_up.png" class="rating_up" /><img src="{{ STATIC_URL}}assets/img/thumbs_down.png" class="rating_down" /><p>{{ video.rating }}</p></div>
+    <div style="clear:both"></div>
     <hr>
     {% for comment  in video.comment_set.all%}
       <p>

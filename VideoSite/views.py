@@ -9,7 +9,7 @@ from django.db.models import Q
 from VideoSite.models import *
 
 def home(request):
-    return HttpResponse("Index page saying stuff about the company")
+    return render_to_response('about.html', context_instance=RequestContext(request))
     
 def sport(request, sportName):
     sport = get_object_or_404(Sport, name=sportName)
@@ -19,30 +19,27 @@ def sport(request, sportName):
     today = datetime.now()
     latestVideo = sport.video_set.filter(eventTime__lt=today).order_by('eventTime')[:3]
     nextVideo = sport.video_set.filter(eventTime__gt=today).order_by('eventTime')[:3]
-    """for video in videos:
-      if hasOccurred(video):
-        latestVideo.append(video)
-      else:
-        nextVideo.append(video)
-        
-    latestVideo = max"""
-    
-    
     
     return render_to_response('sport.html', { 'sport': sport, 'latestVideo': latestVideo, 'nextVideo':nextVideo }, context_instance=RequestContext(request))
 
 def videosList(request, sportName):
     sport = get_object_or_404(Sport, name=sportName)
-    viewModel = {
-        'heading': 'Videos for ' + sportName,
-        'videos': sport.video_set.all()
-    }
+    results = sport.video_set.all()
+    if len(results) is 0:
+        viewModel = {
+            'heading': 'There are no search results for ' + sport.name,
+            'videos': []
+        }
+    else:
+        viewModel = {
+            'heading': 'Search results for ' + sport.name,
+            'videos': results
+        }
     r = RequestContext(request)
     r['sport'] = sport
     return render_to_response('list.html', viewModel, context_instance=r)
     
 def watchVideo(request, videoId):
-    print "test"
     video = get_object_or_404(Video, name=videoId)
     r = RequestContext(request)
     r['sport'] = video.sport
@@ -89,3 +86,29 @@ def addComment(request, videoId):
         r['sport'] = video.sport
     
     return HttpResponseRedirect('/videos/' + video.name)
+    
+def changeRating(request, videoId):
+    if not request.POST:
+        return HttpResponse("Not Accessible by GET")
+    
+    video = get_object_or_404(Video, name=videoId)
+    
+    if request.POST['value'] == "+1":
+        try:
+            video.increaseRating()
+            return HttpResponse("Successful")
+        except:
+            return HttpResponse("Invalid Operation")
+    elif request.POST['value'] == "-1":
+        try:
+            video.decreaseRating()
+            return HttpResponse("Successful")
+        except Exception as e:
+            if e[1] == "Value less than 0":
+                #don't show them an error - this will happen far too often
+                return HttpResponse("Successful")
+            else:
+                return HttpResponse("Invalid Operation")
+            
+    else:
+        return HttpResponse("Invalid Request")
